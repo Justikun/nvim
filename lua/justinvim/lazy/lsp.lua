@@ -45,7 +45,6 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
-                "rust_analyzer",
                 "gopls",
             },
             handlers = {
@@ -103,8 +102,8 @@ return {
             },
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<Enter>'] = cmp.mapping.confirm({ select = true }),
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
@@ -115,7 +114,12 @@ return {
                 { name = 'buffer' },
             })
         })
-
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+            border = "rounded",        -- Clean border
+            width = 60,                -- Narrower for readability
+            height = 15,               -- Limit height
+            focusable = false,         -- Prevent accidental focus
+        })
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
