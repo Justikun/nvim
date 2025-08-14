@@ -1,5 +1,26 @@
 return {
-    {
+   {
+        "catppuccin/nvim",
+        name = "catppuccin-latte",
+        priority = 1000, -- Load early to ensure it’s the base theme
+        config = function()
+            require("catppuccin").setup({
+                flavour = "latte", -- Set latte as the default flavor
+                transparent_background = false, -- Match your bamboo setup
+                term_colors = true,
+                integrations = {
+                    cmp = true,       -- For nvim-cmp integration
+                    gitsigns = true,  -- If you use gitsigns
+                    lsp_trouble = true,
+                    mason = true,     -- For mason.nvim
+                    treesitter = true, -- For nvim-treesitter
+                    notify = true,    -- For fidget.nvim
+                },
+            })
+            vim.cmd("colorscheme catppuccin-latte") -- Set as default colorscheme
+        end,
+    },
+   {
         'ribru17/bamboo.nvim',
         lazy = false,
         priority = 1000,
@@ -46,7 +67,7 @@ return {
                     undercurl = true, -- use undercurl instead of underline for diagnostics
                     background = true, -- use background color for virtual text
                 },
-            }            require('bamboo').load()
+            }
         end,
     },
 }
