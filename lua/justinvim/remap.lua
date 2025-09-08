@@ -56,3 +56,18 @@ vim.keymap.set('n', '<leader>qk', vim.diagnostic.goto_prev)
 
 -- Diagnostics location list and quickfix
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+-- These only work when running inside VSCode Neovim
+if vim.g.vscode then
+  local vscode = require("vscode")
+
+  -- Next diagnostic
+  vim.keymap.set("n", "<leader>qj", function()
+    vscode.action("editor.action.marker.nextInFiles")
+  end, { desc = "Go to next diagnostic (VS Code)" })
+
+  -- Previous diagnostic
+  vim.keymap.set("n", "<leader>qk", function()
+    vscode.action("editor.action.marker.prevInFiles")
+  end, { desc = "Go to previous diagnostic (VS Code)" })
+end
